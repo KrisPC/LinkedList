@@ -31,12 +31,12 @@ void LinkedList::addEnd(int payload)
     {
         if(i+1<this->count)
         {
-            currNode = currNode->getNextNode();
+            currNode = currNode->getNextNode(); ///returns true when currNode has a next Node
         }
 
         else
         {
-            currNode->setNextNode(n);
+            currNode->setNextNode(n); //currNode now points to the end of our list (the last Node)
         }
         
     }
@@ -82,6 +82,102 @@ int LinkedList::removeEnd()
         
     }
 
+}
+
+void LinkedList::addAtIndex(int index, int payload)
+{
+    if(index == 0)
+    {
+        this->addFront(payload);
+    }
+    else if (index >= count)
+    {
+        this->addEnd(payload);
+    }
+
+    else
+    {
+        Node* n = new Node(payload); //2
+        Node* currNode = this->head; // 1
+        Node* prevNode; //points at 1, currently nothing, but first points at 1 to make sure it fills it
+        for(int i = 0; i < index; i++) //runs through list, goes to length of index
+        {
+            prevNode = currNode; //2 points to 1
+            currNode = currNode->getNextNode(); 
+        }
+        std::cout <<"Prev Node:" << prevNode->getPayload()<<" Curr Node:" << currNode->getPayload() << "\n";
+        prevNode->setNextNode(n);
+        n->setNextNode(currNode);
+        count +=1;
+    }
+
+    
+}
+
+int LinkedList::getIndex(int index)
+{
+    if(index >= count - 1)
+    {
+        return this->getEnd();
+    }
+
+    else if(index == 0)
+    {
+        return this->getFront();
+    }
+
+    else
+    {
+        Node* currNode = this->head;
+
+        for(int i = 0; i < index; i++)
+        {
+            if(i< index)
+            {
+                currNode = currNode->getNextNode();
+            }
+            else 
+            {
+                return currNode->getPayload();
+            }
+        }
+
+    }
+    
+}
+
+int LinkedList::removeIndex(int index)
+{
+    int answer = LinkedList::getIndex(index);
+    if(index==0)
+    {
+        this->removeFront();
+        return answer;
+    }
+
+    else if(index == count - 1)
+    {
+        this-removeEnd();
+        return answer;
+    }
+
+    Node* currNode = this->head;
+    Node* prevNode;
+    Node* nextNode;
+    int i = 0;
+
+    while(i<index)
+    {
+            i += 1;
+            prevNode = currNode;
+            currNode = currNode->getNextNode();
+            nextNode = currNode->getNextNode();
+
+    }
+            delete currNode;
+            prevNode->setNextNode(nextNode);
+            count -= 1;
+            return answer;
 }
 
 int LinkedList::getFront()
