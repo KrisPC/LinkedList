@@ -206,7 +206,6 @@ int LinkedList::removeIndex(int index)
 
 void LinkedList::sort()
 {
-    int count3=0;
     Node* currNode = this->head;
 
     for(int i = 0; i < this->count; i++)        
@@ -216,7 +215,6 @@ void LinkedList::sort()
         {
             
             Node * otherCurr = this->head;
-            int countTwo = 0;
             int testingNum = currNode->getNextNode()->getPayload();
  
             for(int z = 0; z<i; z++)
@@ -226,8 +224,8 @@ void LinkedList::sort()
                 {
                     
                     //std::cout<<"count: " <<countTwo<<"\n"<<this->getIndex(countTwo)<<"\n";
-                    int temp = this->removeIndex(count3);
-                    this->addIndex(testingNum,countTwo);
+                    int temp = this->removeIndex(i);
+                    this->addIndex(testingNum,z);
                     break;
 
                 }
@@ -235,7 +233,7 @@ void LinkedList::sort()
                 {
                     
                     otherCurr = otherCurr->getNextNode();
-                    countTwo+=1;
+                   
                 }
                 
             }
@@ -244,7 +242,7 @@ void LinkedList::sort()
         {
             currNode = currNode->getNextNode();
         }
-        count3+=1;
+       
     }
 }
     
